@@ -1,0 +1,13 @@
+id_usuario,produto,pontuacao_preferencia
+1,ProdutoA,5
+1,ProdutoB,3
+1,ProdutoC,2
+2,ProdutoA,4
+2,ProdutoB,4
+2,ProdutoC,3
+3,ProdutoA,2
+3,ProdutoB,3
+3,ProdutoC,5
+4,ProdutoA,3
+4,ProdutoB,2
+4,ProdutoC,4

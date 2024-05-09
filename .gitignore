@@ -1,0 +1,27 @@
+# Ignore arquivos binários e executáveis
+*.exe
+*.dll
+*.so
+*.dylib
+
+# Ignore arquivos de build e diretórios
+bin/
+pkg/
+
+# Ignore arquivos de dependências
+vendor/
+
+# Ignore arquivos de configuração locais
+*.env
+
+# Ignore arquivos de log
+*.log
+
+# Ignore arquivos de backup
+*~
+
+# Ignore arquivos de cache
+.cache/
+
+# Ignore arquivos de saída do VS Code
+.vscode/

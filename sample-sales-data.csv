@@ -1,0 +1,10 @@
+id_usuario,produto,vendas
+1,ProductA,10
+1,ProductB,5
+2,ProductA,8
+2,ProductC,3
+3,ProductB,6
+3,ProductC,7
+4,ProductA,12
+4,ProductB,9
+4,ProductC,11
