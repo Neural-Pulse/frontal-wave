@@ -4,16 +4,19 @@ import (
 	"database/sql"
 	"fmt"
 	"log"
+	"os"
+	"strconv"
 
+	"github.com/joho/godotenv"
 	_ "github.com/lib/pq"
 	"gopkg.in/gomail.v2"
 )
 
 // Produto representa um produto no banco de dados.
 type Produto struct {
-	ID     int
-	Nome   string
-	Preco  float64
+	ID        int
+	Nome      string
+	Preco     float64
 	UsuarioID int
 }
 
@@ -24,7 +27,13 @@ type Usuario struct {
 	Email string
 }
 
-func main() {
+// Função principal para enviar e-mails com detalhes do produto para os usuários
+func EnviarEmails() {
+	err := godotenv.Load()
+	if err != nil {
+		log.Fatal("Erro ao carregar arquivo .env:", err)
+	}
+
 	// Configuração da conexão com o banco de dados
 	db, err := sql.Open("postgres", "user=username password=password dbname=database sslmode=disable")
 	if err != nil {
@@ -68,8 +77,18 @@ func main() {
 
 // Função auxiliar para enviar e-mails
 func sendEmail(to, subject, body string) error {
+	smtpHost := os.Getenv("SMTP_HOST")
+	smtpPortStr := os.Getenv("SMTP_PORT")
+	smtpUsername := os.Getenv("SMTP_USERNAME")
+	smtpPassword := os.Getenv("SMTP_PASSWORD")
+
+	smtpPort, err := strconv.Atoi(smtpPortStr)
+	if err != nil {
+		log.Fatal("Erro ao converter porta SMTP para inteiro:", err)
+	}
+
 	// Configuração do cliente SMTP
-	dialer := gomail.NewDialer("smtp.example.com", 587, "username", "password")
+	dialer := gomail.NewDialer(smtpHost, smtpPort, smtpUsername, smtpPassword)
 
 	// Criação da mensagem
 	message := gomail.NewMessage()
@@ -79,7 +98,7 @@ func sendEmail(to, subject, body string) error {
 	message.SetBody("text/plain", body)
 
 	// Envio do e-mail
-	err := dialer.DialAndSend(message)
+	err = dialer.DialAndSend(message)
 	if err != nil {
 		return err
 	}
